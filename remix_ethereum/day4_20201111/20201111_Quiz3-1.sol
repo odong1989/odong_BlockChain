@@ -66,7 +66,7 @@ contract Quiz3_1{
             //4번째 라 그룹 : 40점 초과 70점 미만을 받은 학생들
             arrayGroup.push("라");
         }
-        else if(score >=40 ){
+        else if(score <=40 ){
             //3번째 다 그룹 : 40점 이하를 받은 학생들 
             arrayGroup.push("다");
        }
@@ -81,40 +81,49 @@ contract Quiz3_1{
     function viewGradeGroup(uint cell) view public returns(uint, string memory, string memory){
         return(arrayScore[cell], arrayGrade[cell],arrayGroup[cell] );
     }    
+    
     function viewArrayLength() view public returns(uint,uint,uint){
         return(arrayScore.length, arrayGrade.length,arrayGroup.length );
     }    
     
+    
     //2.점수기반 4개 그룹의 평균을 각각 내야 합니다. 
-    function test() view public returns(uint){
-    uint total=0;
-        for(uint i=0; i<=arrayScore.length; i++){
-            total+=arrayScore[i];
-        }
-        return total;
-    }
+    function viewAvgGroups() view public returns(uint avgGA,uint avgNA,uint avgDA,uint avgRA, uint cntGA, uint cntNA, uint cntDA, uint cntRA){
+    uint total_GA=0; //1번째 '가'그룹 :  반 전체 
+    uint total_NA=0; //2번째 '나' 그룹 : 70점 이상을 받은 학생들 
+    uint total_RA=0; //4번째 '라' 그룹 : 40점 초과 70점 미만을 받은 학생들
+    uint total_DA=0; //3번째 '다' 그룹 : 40점 이하를 받은 학생들 
 
+    uint count_GA=0; //1번째 '가'그룹 :  반 전체 
+    uint count_NA=0; //2번째 '나' 그룹 : 70점 이상을 받은 학생들 
+    uint count_RA=0; //4번째 '라' 그룹 : 40점 초과 70점 미만을 받은 학생들
+    uint count_DA=0; //3번째 '다' 그룹 : 40점 이하를 받은 학생들 
     
 
+        for(uint i=0; i<arrayScore.length; i++){ 
+            //[주의&나의실수] 배열의 길이관련 조건설정은 무조건"<"으로 해야한다!(미치고  팔짝뛸 초보적 실수 -ㅅ-;;;)
+            //("<="으로 하면 없는 배열의 칸을 찾게됨->못찾음->컴은 에러처리
+            //이처럼 에러를 발생시킴에도 컴파일러는 문법오류가 없기에 통과시킨다. 덕분에 시간을 날려먹음... ㅠㅠ
 
-/*
-    function viewGroupAVG() view public returns(uint){
-        string memory tempStr="";
-        uint total_Na=0; uint count_Na=0;
-        
-        for(uint i=0; i<=arrayScore.length;i++){
-            //tempStr = arrayGroup[i];
-            //if( keccak256(bytes(tempStr)) == keccak256(bytes('나')) ){
-                //invalid opcode. invalid opcode The execution might have thrown. Debug the transaction to get more information.
-                //왜 이런 에러인지는 확인중.
+            total_GA += arrayScore[i];
+            count_GA ++;
 
-            if(arrayScore[i]>=70){
-               total_Na+=arrayScore[i];
-               count_Na++;
-            }
+            if(keccak256(bytes(arrayGroup[i])) == keccak256(bytes("나")) ){
+                total_NA+=arrayScore[i]; 
+                count_NA++; 
+           }           
+            else if(keccak256(bytes(arrayGroup[i])) == keccak256(bytes("다")) ){
+                total_DA+=arrayScore[i]; 
+                count_DA++; 
+           }           
+            else if(keccak256(bytes(arrayGroup[i])) == keccak256(bytes("라")) ){
+                total_RA+=arrayScore[i]; 
+                count_RA++; 
+           }                      
+
         }
-        return(total_Na/count_Na);
+        return( (total_GA/count_GA), (total_NA/count_NA), (total_DA/count_DA), (total_RA/count_RA),
+                count_GA,count_NA,count_DA,count_RA);
     }
-    */
-    //추가로, 각 그룹들의 인원을 구하세요. 평균과 인원은 같이 나와야 합니다.    
+
 }
