@@ -1,0 +1,50 @@
+
+pragma solidity ^0.6.0;
+
+contract C2 {
+    uint256 a;              
+    uint256 b;              //장소선언 : a,b 총 2개이다.
+    function cc() public{
+        a = 1;
+        b = 2;
+    }
+    
+    
+}
+
+
+/*
+a연산 직후(a의 연산part 생략)
+memory : 없음
+st : 없음
+----------------------------------
+0x6002 //02를 push
+0x6000 //00를 push(피연산자 2개 필요따라 실시)
+0x81   //스택에서 2개 복사
+0x90   // 교환 및 2스택 더함
+0x55   // store에 0x02를 저장.
+0x50   //push되어 있었던 02를 꺼냄
+
+a연산 직후(a의 연산part 생략)
+memory : 없음
+st : 0x01
+----------------------------------
+b의 연산-start
+0x6002 //02를 push
+0x6000 //00를 push(피연산자 2개 필요따라 실시) / a의 저장장소:00  
+0x81   //스택에서 2개 복사
+0x90   // 교환 및 2스택 더함
+0x55   // store에 0x02를 저장.
+0x50   //push되어 있었던 02를 꺼냄
+----------------------------------
+b의 연산-result
+st : 0x01, 0x02
+*/
+/*
+{
+	"linkReferences": {},
+	"object": "6080 6040 5234 8015 600f 5760 0080 fd5b 5060 7d80 6100 1e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063a2cdd47114602d575b600080fd5b60336035565b005b6001600081905550600260018190555056fea26469706673582212207aa525bf9f5513c6fc416fcba26096e14959d8fd6e248f34e1ba5aa1ed28a88964736f6c63430006060033",
+	"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x7D DUP1 PUSH2 0x1E PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH1 0x28 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0xA2CDD471 EQ PUSH1 0x2D JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x33 PUSH1 0x35 JUMP JUMPDEST STOP JUMPDEST PUSH1 0x1 PUSH1 0x0 DUP2 SWAP1 SSTORE POP PUSH1 0x2 PUSH1 0x1 DUP2 SWAP1 SSTORE POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH27 0xA525BF9F5513C6FC416FCBA26096E14959D8FD6E248F34E1BA5AA1 0xED 0x28 0xA8 DUP10 PUSH5 0x736F6C6343 STOP MOD MOD STOP CALLER ",
+	"sourceMap": "29:126:0:-:0;;;;5:9:-1;2:2;;;27:1;24;17:12;2:2;29:126:0;;;;;;;"
+}
+*/

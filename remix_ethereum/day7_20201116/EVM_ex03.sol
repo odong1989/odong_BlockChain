@@ -1,0 +1,66 @@
+
+pragma solidity ^0.6.0;
+
+contract C {
+   uint256 a;               //장소값 : 00
+   uint256 b;               //장소값 : 01
+   uint256 c;               //장소값 : 02
+   function cc() public {
+     a = 1;//part1
+     b = 2;
+     c = a+b;
+   }
+}
+/*
+//part_1
+push 0x01  //a의 값
+push 0x00  //a의 장소
+81         //복사
+90         //
+55         //팝하여 삭제 (스택 다 사용하면 깨긋하게 비운다. )
+
+// 주소값  :  00   01 
+//스토리지 :  01 (없음)
+
+part_2
+push 0x02  //b의 값
+push 0x01  //b의 장소
+81         //복사       stact : 02 01 02 
+90         //           stack : 
+55         //팝하여 삭제 
+
+// 주소값  :  00   01 
+//스토리지 :  01 (없음)
+
+part_3
+//뒤에서 부터한다. 그래서 b부터 가져옴.
+// b load
+0x60
+sload(01) //sload(주소값) : 주소값을 받고, 해당주소가 보유한 값을 리턴(맅리턴=스택에게 푸시까지 실사.). 
+0x54
+
+//a load 
+0x60      // 0x60 :PUSH1
+sload(00) //sload도 스택개념으로 적용되어   
+0x54      // 0x54 : SLOAD
+
+//add
+0x01  
+
+//stack : 03 
+
+
+{
+	"linkReferences": {},
+	"object": "6080604052348015600f57600080fd5b50608a8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063a2cdd47114602d575b600080fd5b60336035565b005b600160008190555060026001819055506001546000540160028190555056fea2646970667358221220c07ec9db91d2630eedc31a12e067c5112bb15c0013a1d5e41c8ff4ef6691266164736f6c63430006060033",
+	"opcodes": 
+	"PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI 
+	PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x8A DUP1 PUSH2 0x1E PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH1 0x28 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0xA2CDD471 EQ PUSH1 0x2D JUMPI JUMPDEST 
+	
+	PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x33 PUSH1 0x35 JUMP JUMPDEST STOP 
+	JUMPDEST PUSH1 0x1 PUSH1 0x0 DUP2 SWAP1 SSTORE POP PUSH1 0x2 PUSH1 0x1 
+	DUP2 SWAP1 SSTORE POP PUSH1 0x1 SLOAD PUSH1 0x0 SLOAD ADD PUSH1 0x2 DUP2 SWAP1 SSTORE POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xC0 PUSH31 0xC9DB91D2630EEDC31A12E067C5112BB15C0013A1D5E41C8FF4EF6691266164 PUSH20 0x6F6C634300060600330000000000000000000000 ",
+	"sourceMap": "26:225:0:-:0;;;;5:9:-1;2:2;;;27:1;24;17:12;2:2;26:225:0;;;;;;;"
+}
+
+*/
