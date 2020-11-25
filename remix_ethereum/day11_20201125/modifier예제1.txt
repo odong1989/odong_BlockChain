@@ -1,0 +1,16 @@
+    uint full = 0;
+    
+    modifier empty() {	
+    	require(full == 0;) //full이 0일때만 통과가능 
+    	full = 1;           //통과후 1로 값 변경
+    	_;                  //정의된 함수(gototoilet())를 실시.
+    	full  =0;
+    }
+    
+    function gototoilet() public empty {
+    	if(a person need to go to toilet){
+    		person goes to toilet;
+    	} else {
+    		everything is fine
+    	}
+    }

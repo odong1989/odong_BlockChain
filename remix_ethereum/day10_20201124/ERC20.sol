@@ -38,14 +38,14 @@ contract ERC20 is Context, IERC20 {
     }
 
     function totalSupply() public view override returns (uint256) {
-        return _totalSupply;
+        return _totalSupply; //    uint256 private _totalSupply;
     }
     function balanceOf(address account) public view override returns (uint256) {
         return _balances[account];
     }
 
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        _transfer(_msgSender(), recipient, amount);
+        _transfer(_msgSender(), recipient, amount); //    function _transfer(address sender, address recipient, uint256 amount) ...를 실시.
         return true;
     }
 
@@ -83,7 +83,7 @@ contract ERC20 is Context, IERC20 {
 
         _balances[sender] = _balances[sender].sub(amount, "ERC20: transfer amount exceeds balance");
         _balances[recipient] = _balances[recipient].add(amount);
-        emit Transfer(sender, recipient, amount);
+        emit Transfer(sender, recipient, amount);   //event Transfer(address indexed from, address indexed to, uint256 value); 를 불러서 실행한다. 
     }
     function _mint(address account, uint256 amount) internal virtual {
         require(account != address(0), "ERC20: mint to the zero address");
