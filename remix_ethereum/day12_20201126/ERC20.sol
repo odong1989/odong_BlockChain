@@ -111,7 +111,7 @@ contract BasicToken is ERC20Basic {
 contract StandardToken is ERC20, BasicToken {
 
   mapping (address => mapping (address => uint256)) allowed;
-
+        //송금자 주소    
 
   /**
    * @dev Transfer tokens from one address to another
