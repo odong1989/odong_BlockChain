@@ -6,7 +6,8 @@ interface IERC20 {//인터페이스를 구현한다.
     //총 얼마만큼의 토큰을 발행할 것인가?를 결정
     
     function balanceOf(address account) external view returns (uint256);
-    //해당주소가 얼마만큼의 잔고를 갖고 있는가?
+    //해당주소가 얼마만큼의 잔고(발행한 토큰에 대한 잔고)를 갖고 있는가?
+    //토큰을 현화로 비유하면 오직! 원화에 대해서만 리턴하는셈.
     //내잔고 확인 :  function balanceOf(나의 account) 
 
     function transfer(address recipient, uint256 amount) external returns (bool);//보내는 사람은 없다
