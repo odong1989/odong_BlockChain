@@ -1,0 +1,25 @@
+//김보성
+
+pragma solidity >=0.4.22 <0.7.0;
+
+contract one{ //20201204 2:30~2:48
+    /*
+    12345
+    자리수
+    각자리들 합(1+2+3+4+5)
+    */
+    function stair(uint b)public view returns(uint, uint){
+        uint _n;
+        uint _sum=0;
+        uint c;
+        uint b2 = b;
+        
+        while(b>=10**_n){
+            c = b2%10;
+            _sum += c;
+            b2 = b2/10;
+            _n++;
+        }
+
+    }
+}

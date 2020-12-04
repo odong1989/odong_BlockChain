@@ -1,0 +1,46 @@
+//김보성
+/*
+ex)
+14 -> 2,3,5,7,11,13
+17 ->2,3,5,7,11,13,17
+*/
+
+pragma solidity >=0.4.22 <0.7.0;
+
+contract quiz20_1204{
+uint[] decimal;
+    
+//    function checkDecimal(uint MAX_NUM)public{
+/*        for(uint i=2;num<i;i++){ //입력된 num값까지 1개씩 체크. start:2
+        
+            for(uint check=2; check<=i;check++){    
+                if( i%check == 0 && check == i){
+                    decimal.push(check);
+                }
+                if(num % check == 0){   //소수판별규칙:자기자신의 이외의 숫자로 나뉘지면 소수가 아니다.
+                    break;                        
+                }
+            }
+        }*/
+    function checkDecimal(uint MAX_NUM)public{
+        for (uint num = 2; num <= MAX_NUM; num++) {
+            for (uint i = 2; i < num; i++) {
+                if (num % i == 0) {
+                    break;
+                }
+            }
+            if (num == i) {
+                decimal.push(num);
+            }
+        }
+            
+    }
+    
+    function viewDecimal()public view returns(uint[] memory){    
+        return decimal;
+    }
+    
+    function viewDecimalUnit(uint cell)public view returns(uint){    
+        return decimal[cell];
+    }
+}
